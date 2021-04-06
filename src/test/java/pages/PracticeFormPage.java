@@ -179,7 +179,7 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage modalUserBirthDayAssert() {
+    public PracticeFormPage modalUserBirthDateAssert() {
         modalUserBirthDay.shouldHave(text(USER_BIRTHDAY + " " + USER_BIRTHMONTH + "," + USER_BIRTHYEAR));
         return this;
     }
