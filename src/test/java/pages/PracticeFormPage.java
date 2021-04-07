@@ -5,7 +5,8 @@ import com.github.javafaker.Faker;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class PracticeFormPage {
     Faker faker = new Faker();
@@ -137,7 +138,7 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage userState() {
-        userState.click();
+        userState.scrollTo().click();
         $(byText(USER_STATE_CITY[0])).click();
         return this;
     }
@@ -209,8 +210,15 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage modalStateCityAssert() {
-        for (String hobby : USER_STATE_CITY) {
-            modalUserStateCity.shouldHave(text(hobby));
+        for (String state : USER_STATE_CITY) {
+            modalUserStateCity.shouldHave(text(state));
+        }
+        return this;
+    }
+
+    public PracticeFormPage modalStateCityNegativeAssert() {
+        for (String state : USER_STATE_CITY) {
+            modalUserStateCity.shouldNotHave(text(state));
         }
         return this;
     }

@@ -13,7 +13,8 @@ def
         allureVersion = "2.13.8",
         aspectjweaverVersion = "1.9.6",
         javafakerVersion = "1.0.2",
-        automatedowlVersion = "1.0.0";
+        slf4jVersion = "1.7.30",
+        automatedowlVersion = "1.0.0"
 
 allure {
     version = allureVersion
@@ -32,12 +33,35 @@ dependencies {
             "io.qameta.allure:allure-selenide:$allureVersion",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion",
             "com.github.javafaker:javafaker:$javafakerVersion",
+            "org.slf4j:slf4j-log4j12:$slf4jVersion",
             "com.github.automatedowl:allure-environment-writer:$automatedowlVersion")
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+
+tasks.withType(Test) {
+    systemProperties = System.properties
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+task positive_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags "positive"
+    }
+}
+
+task negative_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags "negative"
+    }
 }
 
 test {
