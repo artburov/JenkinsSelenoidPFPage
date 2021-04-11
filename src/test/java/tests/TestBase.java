@@ -32,6 +32,7 @@ public class TestBase {
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
             Configuration.browserCapabilities = capabilities;
+            Configuration.browser = System.getProperty("browser_select");
             Configuration.remote = System.getProperty("remote_driver");
         }
         Configuration.browserSize = "1024x768";
