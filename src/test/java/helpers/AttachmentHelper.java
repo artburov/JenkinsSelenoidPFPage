@@ -1,5 +1,6 @@
 package helpers;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
@@ -7,6 +8,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.logging.LogType.BROWSER;
@@ -34,11 +36,14 @@ public class AttachmentHelper {
                 + "' type='video/mp4'></video></body></html>";
     }
 
-    public static String getSessionId(){
+    public static String getSessionId() {
         return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 
     public static String getConsoleLogs() {
-        return String.join("\n", Selenide.getWebDriverLogs(BROWSER));
+        if (Configuration.browser.equals("firefox")) {
+            return "Collecting console log doesn't work in Firefox";
+        }
+        return String.join("\n", Selenide.getWebDriverLogs(BROWSER, Level.ALL));
     }
 }

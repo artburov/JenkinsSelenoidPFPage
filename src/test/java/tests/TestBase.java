@@ -25,17 +25,20 @@ public class TestBase {
                         .put("URL", "http://aburov.local8808.net")
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
-        //Remote browser can be used in Jenkins for Selenoid UI
-        if (System.getProperty("remote_driver") != null) {
-            //Selenoid settings
+        /**
+         * Remote browser can be used in Jenkins for Selenoid UI
+         * @param -Dremote.driver=https://user1:1234@selenoid.autotests.cloud/wd/hub/ -Dbrowser.select=firefox
+         * @see Local and Selenoid run settings
+         */
+        Configuration.browser = System.getProperty("browser.select", "chrome");
+        Configuration.browserSize = "1024x768";
+        if (System.getProperty("remote.driver") != null) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
             Configuration.browserCapabilities = capabilities;
-            Configuration.browser = System.getProperty("browser_select");
-            Configuration.remote = System.getProperty("remote_driver");
+            Configuration.remote = System.getProperty("remote.driver");
         }
-        Configuration.browserSize = "1024x768";
     }
 
     @AfterEach
@@ -43,7 +46,11 @@ public class TestBase {
         attachScreenshot("Last screenshot");
         attachPageSource();
         attachAsText("Browser console logs", getConsoleLogs());
-        attachVideo();
+        //Video can be attached to Allure report if video.storage = true
+        String videoStorage = System.getProperty("video.storage");
+        if (videoStorage != null) {
+            attachVideo();
+        }
         closeWebDriver();
     }
 }
