@@ -48,7 +48,7 @@ public class TestBase {
         attachAsText("Browser console logs", getConsoleLogs());
         //Video can be attached to Allure report if video.storage = true
         String videoStorage = System.getProperty("video.storage");
-        if (videoStorage != null) {
+        if (videoStorage.equals("true")) {
             attachVideo();
         }
         closeWebDriver();
