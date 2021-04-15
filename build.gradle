@@ -14,6 +14,7 @@ def
         aspectjweaverVersion = "1.9.6",
         javafakerVersion = "1.0.2",
         slf4jVersion = "1.7.30",
+        ownerVersion = "1.0.12",
         automatedowlVersion = "1.0.0"
 
 allure {
@@ -33,6 +34,7 @@ dependencies {
             "io.qameta.allure:allure-selenide:$allureVersion",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion",
             "com.github.javafaker:javafaker:$javafakerVersion",
+            "org.aeonbits.owner:owner:1.0.12",
             "org.slf4j:slf4j-log4j12:$slf4jVersion",
             "com.github.automatedowl:allure-environment-writer:$automatedowlVersion")
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
@@ -40,6 +42,8 @@ dependencies {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType(Test) {
