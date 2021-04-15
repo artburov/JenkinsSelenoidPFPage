@@ -31,7 +31,8 @@ public class TestBase {
                         + "/build/allure-results/");
         /**
          * Remote browser can be used in Jenkins for Selenoid UI
-         * @param -Dremote.driver=https://%s:%s@selenoid.autotests.cloud/wd/hub/ -Dbrowser.select=firefox
+         * @param -Dremote.driver=https://%s:%s@selenoid.autotests.cloud/wd/hub/
+         * @param -Dbrowser.select=firefox -Dvideo.storage=true
          * @see Local and Selenoid run settings
          */
         Configuration.browser = System.getProperty("browser.select", "chrome");

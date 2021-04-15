@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
+import config.DriverConfig;
+import org.aeonbits.owner.ConfigFactory;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -10,6 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class PracticeFormPage {
     Faker faker = new Faker();
+    DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
     //Form page data
     private final String FORM_URL = "https://demoqa.com/automation-practice-form";
@@ -29,7 +32,7 @@ public class PracticeFormPage {
     private final String USER_IMAGE = "robot.png";
     private final String USER_ADDRESS = faker.address().fullAddress();
     private static String USER_ADDRESS_ASSERT = "";
-    private final String MODAL_TITLE = "Thanks for submitting the form";
+    private final String MODAL_TITLE = driverConfig.modalTitle();
 
     private final String[] USER_SUBJECTS = new String[]{"Computer Science", "Physics", "English"},
             USER_HOBBIES = new String[]{"Sports", "Music"},
