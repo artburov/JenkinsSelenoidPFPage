@@ -31,15 +31,15 @@ public class TestBase {
                         + "/build/allure-results/");
         /**
          * Remote browser can be used in Jenkins for Selenoid UI
-         * @param -Dremote.driver=https://user1:1234@selenoid.autotests.cloud/wd/hub/ -Dbrowser.select=firefox
+         * @param -Dremote.driver=https://%s:%s@selenoid.autotests.cloud/wd/hub/ -Dbrowser.select=firefox
          * @see Local and Selenoid run settings
          */
         Configuration.browser = System.getProperty("browser.select", "chrome");
         Configuration.browserSize = "1024x768";
-        if (System.getProperty("remote.driver") != null) {
+        String remoteWebDriver = System.getProperty("remote.driver");
+        if (remoteWebDriver != null) {
             String user = driverConfig.remoteWebUser();
             String password = driverConfig.remoteWebPassword();
-            String remoteWebDriver = System.getProperty("remote.driver");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
